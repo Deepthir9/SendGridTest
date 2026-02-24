@@ -23,7 +23,7 @@ jobs:
             "subject":"🚀 GitHub Action Email Test",
             "content":[{
               "type":"text/plain",
-              "value":"This email was sent from a GitHub Action using SendGrid."
+              "value":"This email was sent from a GitHub Action using SendGrid. now testing with a push trigger"
             }]
           }'
         env:
