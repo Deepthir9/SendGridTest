@@ -1,0 +1,30 @@
+name: Send email using SendGrid
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  email:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Send email
+        run: |
+          curl -X POST https://api.sendgrid.com/v3/mail/send \
+          -H "Authorization: Bearer $SENDGRID_API_KEY" \
+          -H "Content-Type: application/json" \
+          -d '{
+            "personalizations":[{
+              "to":[{"email":"deepthiramesh.chandra@ibm.com"}]
+            }],
+            "from":{"email":"deepthiramesh.chandra@.com"},
+            "subject":"🚀 GitHub Action Email Test",
+            "content":[{
+              "type":"text/plain",
+              "value":"This email was sent from a GitHub Action using SendGrid."
+            }]
+          }'
+        env:
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
