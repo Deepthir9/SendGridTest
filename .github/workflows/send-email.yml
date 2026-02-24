@@ -19,7 +19,7 @@ jobs:
             "personalizations":[{
               "to":[{"email":"deepthiramesh.chandra@ibm.com"}]
             }],
-            "from":{"email":"deepthiramesh.chandra@.com"},
+            "from":{"email":"deepthiramesh.chandra@ibm.com"},
             "subject":"🚀 GitHub Action Email Test",
             "content":[{
               "type":"text/plain",
