@@ -1,18 +1,16 @@
-name: Notify on CI completion
+name: Send email using SendGrid
 
 on:
-  workflow_run:
-    workflows: ["CI"]
-    types:
-      - completed
+  push:
+    branches:
+      - main
 
 jobs:
-  notify-success:
+  email:
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
     steps:
-      - name: Send success email
+      - name: Send email
         run: |
           curl -X POST https://api.sendgrid.com/v3/mail/send \
           -H "Authorization: Bearer $SENDGRID_API_KEY" \
@@ -22,34 +20,10 @@ jobs:
               "to":[{"email":"deepthiramesh.chandra@ibm.com"}]
             }],
             "from":{"email":"deepthiramesh.chandra@ibm.com"},
-            "subject":"✅ CI Passed",
+            "subject":"🚀 GitHub Action Email Test",
             "content":[{
               "type":"text/plain",
-              "value":"CI workflow completed successfully for repo '${{ github.repository }}'."
-            }]
-          }'
-        env:
-          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
-
-  notify-failure:
-    runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
-
-    steps:
-      - name: Send failure email
-        run: |
-          curl -X POST https://api.sendgrid.com/v3/mail/send \
-          -H "Authorization: Bearer $SENDGRID_API_KEY" \
-          -H "Content-Type: application/json" \
-          -d '{
-            "personalizations":[{
-              "to":[{"email":"deepthiramesh.chandra@ibm.com"}]
-            }],
-            "from":{"email":"deepthiramesh.chandra@ibm.com"},
-            "subject":"❌ CI Failed",
-            "content":[{
-              "type":"text/plain",
-              "value":"CI workflow FAILED for repo '${{ github.repository }}'. Check GitHub Actions logs."
+              "value":"This email was sent from a GitHub Action using SendGrid."
             }]
           }'
         env:
