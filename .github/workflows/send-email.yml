@@ -1,4 +1,4 @@
-name: EN test notification
+name: Send email via SendGrid SMTP (simple test)
 
 on:
   push:
@@ -6,23 +6,25 @@ on:
       - main
 
 jobs:
-  notify:
+  email:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Publish event to IBM Event Notifications
+      - name: Install SMTP client
+        run: sudo apt-get update && sudo apt-get install -y swaks
+
+      - name: Send test email
         run: |
-          curl -X POST \
-          "https://$IBM_REGION.event-notifications.cloud.ibm.com/v1/instances/$IBM_EVENT_NOTIFICATIONS_INSTANCE_ID/topics/$IBM_EVENT_NOTIFICATIONS_TOPIC_ID/publish" \
-          -H "Authorization: Bearer $IBM_API_KEY" \
-          -H "Content-Type: application/json" \
-          -d '{
-            "subject": "GitHub → IBM EN test",
-            "message": "This event was published from GitHub Actions to IBM Event Notifications.",
-            "severity": "info"
-          }'
+          swaks \
+            --to deepthiramesh.chandra@ibm.com \
+            --from deepthiramesh.chandra@ibm.com \
+            --server smtp.sendgrid.net \
+            --port 587 \
+            --auth LOGIN \
+            --auth-user apikey \
+            --auth-password "$SENDGRID_API_KEY" \
+            --tls \
+            --header "Subject: GitHub Actions SMTP test" \
+            --body "This email was sent from GitHub Actions using SendGrid SMTP."
         env:
-          IBM_API_KEY: ${{ secrets.IBM_API_KEY }}
-          IBM_EVENT_NOTIFICATIONS_INSTANCE_ID: ${{ secrets.IBM_EVENT_NOTIFICATIONS_INSTANCE_ID }}
-          IBM_EVENT_NOTIFICATIONS_TOPIC_ID: ${{ secrets.IBM_EVENT_NOTIFICATIONS_TOPIC_ID }}
-          IBM_REGION: ${{ secrets.IBM_REGION }}
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
