@@ -21,8 +21,8 @@ jobs:
             --server smtp.us-south.event-notifications.cloud.ibm.com \
             --port 587 \
             --auth LOGIN \
-            --auth-user 12x392w1v3711pj71605 \
-            --auth-password 25gltu2A06Y4G8Wq0Uw8BAeKivB2r2 \
+           --auth-user ${{ secrets.EN_SMTP_USER }} \
+           --auth-password ${{ secrets.EN_SMTP_PASSWORD }} \
             --tls \
             --header "Subject: GitHub Actions SMTP test" \
             --body "This email was sent from GitHub Actions using En SMTP."
