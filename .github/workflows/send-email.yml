@@ -22,7 +22,7 @@ jobs:
             --port 587 \
             --auth LOGIN \
            --auth-user ${{ secrets.EN_SMTP_USER }} \
-           --auth-password ${{ secrets.EN_SMTP_PASSWORD }} \
+           --auth-password $"{{ secrets.EN_SMTP_PASSWORD }}" \
             --tls \
             --header "Subject: GitHub Actions SMTP test" \
             --body "This email was sent from GitHub Actions using En SMTP."
