@@ -1,4 +1,4 @@
-name: Send email via SendGrid SMTP (simple test)
+name: Send email via EN SMTP (simple test)
 
 on:
   push:
@@ -17,14 +17,12 @@ jobs:
         run: |
           swaks \
             --to deepthiramesh.chandra@ibm.com \
-            --from deepthiramesh.chandra@ibm.com \
-            --server smtp.sendgrid.net \
+            --from test@producttest.in \
+            --server smtp.us-south.event-notifications.cloud.ibm.com \
             --port 587 \
             --auth LOGIN \
-            --auth-user apikey \
-            --auth-password "$SENDGRID_API_KEY" \
+            --auth-user 12x392w1v3711pj71605 \
+            --auth-password 25gltu2A06Y4G8Wq0Uw8BAeKivB2r2 \
             --tls \
             --header "Subject: GitHub Actions SMTP test" \
-            --body "This email was sent from GitHub Actions using SendGrid SMTP."
-        env:
-          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+            --body "This email was sent from GitHub Actions using En SMTP."
