@@ -24,6 +24,5 @@ jobs:
            --auth-user ${{ secrets.EN_SMTP_USER }} \
            --auth-password ${{ secrets.EN_SMTP_PASSWORD }} \
             --tls \
-            --tls-verify-none \
             --header "Subject: GitHub Actions SMTP test" \
             --body "This email was sent from GitHub Actions using En SMTP."
