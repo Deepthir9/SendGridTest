@@ -17,8 +17,8 @@ jobs:
         run: |
           swaks \
             --to deepthiramesh.chandra@ibm.com \
-            --from test@producttest.in \
-            --server smtp.us-south.event-notifications.cloud.ibm.com \
+            --from test@mailx.event-notifications.test.cloud.ibm.com \
+            --server smtp.us-south.event-notifications.test.cloud.ibm.com \
             --port 587 \
             --auth LOGIN \
            --auth-user ${{ secrets.EN_SMTP_USER }} \
