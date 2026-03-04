@@ -20,7 +20,7 @@ jobs:
             --from test@mailx.event-notifications.test.cloud.ibm.com \
             --server smtp.us-south.event-notifications.test.cloud.ibm.com \
             --port 587 \
-            -- tls \
+            --tls \
             --auth PLAIN \
             --auth-user ${{ secrets.EN_SMTP_USER }} \
             --auth-password ${{ secrets.EN_SMTP_PASSWORD }} \
